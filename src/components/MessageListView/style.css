@@ -1,0 +1,13 @@
+.messageListWrapper {
+  display: flex;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.messageListWrapper .messageListContainer {
+  display: flex;
+  flex: 1;
+  padding: 30px 10px;
+  flex-direction: column;
+  min-height: 100%;
+}

@@ -1,0 +1,60 @@
+.App {
+  position: relative;
+  height: 100%;
+  text-align: left;
+  padding: 3rem 2rem;
+}
+
+.App .header {
+  display: flex;
+  align-items: center;
+}
+
+.App .header img {
+  height: 7rem;
+  width: 7rem;
+  border-radius: 50%;
+}
+
+.App .header h2 {
+  font-size: 40px;
+  margin: 0;
+  font-weight: 600;
+}
+.App .header span {
+  font-size: 20px;
+}
+
+.App .header .header-content {
+  margin-left: 1rem;
+}
+.App .tip {
+  margin-top: 1.5rem;
+}
+.App .tip div {
+  box-sizing: border-box;
+  display: inline-block;
+  border-radius: 4rem;
+  padding: 1.5rem;
+  border: solid 1px transparent;
+  font-size: 24px;
+  background: rgb(207, 211, 220);
+  background-clip: padding-box;
+  position: relative;
+}
+
+.App .tip div::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+  margin: -1px;
+  border-radius: inherit;
+  background: -webkit-linear-gradient(#b57cc0, #6fa0e5, #585fc3);
+  background: -o-linear-gradient(#b57cc0, #6fa0e5, #585fc3);
+  background: -moz-linear-gradient(#b57cc0, #6fa0e5, #585fc3);
+  background: linear-gradient(#b57cc0, #6fa0e5, #585fc3);
+}
