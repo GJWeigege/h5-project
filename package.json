@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "main": "main.js",
+  "description": "ROKI",
+  "author": "Jam",
   "dependencies": {
     "@chakra-ui/react": "^2.5.5",
     "@emotion/react": "^11.10.6",
@@ -27,14 +29,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "electron-forge start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
-    "electron": "wait-on tcp:3000 && electron .",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
+    "deploy": "node ./publish.mjs"
   },
   "eslintConfig": {
     "extends": [
@@ -57,5 +56,8 @@
   "peerDependencies": {
     "react": ">=16.0"
   },
-  "proxy": "https://ai.staringos.com"
+  "proxy": "https://staringai.com",
+  "devDependencies": {
+    "exec-sh": "^0.4.0"
+  }
 }

@@ -27,7 +27,7 @@ function App() {
 
   // 轮询
   var zNum = 0; // 用户未操作页面时长
-  var maxTime = 10;
+  var maxTime = 120;
   // 用户操作
   const handleDo = (params) => {
     setShowVideo(false);
@@ -103,7 +103,7 @@ function App() {
       </Box>
       <MessageListView
         conversationId={conversationId}
-        assistantId="clfwe1qtz00024zruzu2zy0bx"
+        assistantId="clm0ah12b0016wsrn66jzqv1e"
       />
 
       <Box
@@ -116,6 +116,8 @@ function App() {
         justifyContent="center"
         alignItems="center"
         background="black"
+        height="100vh"
+        width="100vw"
       >
         <video
           ref={videoRef}

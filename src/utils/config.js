@@ -25,4 +25,4 @@ export const mtbirdAppId = "53f628d1-8a21-40fe-84ba-352beb581ac0";
 export const isVectorSearch = true;
 export const vectorCollectionName = "menu2";
 export const needRobotVoice = true;
-export const defaultAssistantId = "clfwe1qtz00024zruzu2zy0bx";
+export const defaultAssistantId = "clm0ah12b0016wsrn66jzqv1e";

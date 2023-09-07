@@ -48,7 +48,7 @@ class Store {
   login = async () => {
     localStorage.setItem(
       STORAGE_ACCESS_TOKEN,
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbGd0NGZ1YzYwMDNldnZwYXdwMzFvM3p2IiwiaWF0IjoxNjgyMjM2OTQwLCJleHAiOjE2ODI4NDE3NDB9.75iL4heK_yrY9Ezts-muiwD1hp1TTspWxKEUGiqIG8I"
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbGd0NGZ1YzYwMDNldnZwYXdwMzFvM3p2IiwiaWF0IjoxNjk0MDY4MjExLCJleHAiOjE3MjU2MDQyMTF9.8z3GWMHTEXuV2reSrgL4YAnutQuE3_5BWTwWErUHcYs"
     );
     this.user = { id: "clgt4fuc6003evvpawp31o3zv" };
     return { id: "clgt4fuc6003evvpawp31o3zv" };
@@ -86,13 +86,13 @@ class Store {
       if (!this.user) await this.login();
 
       const id = randomNum(10);
-      await syncConversation(
+      const { data } = await syncConversation(
         id,
         [],
         this.user?.id,
         assistantId || defaultAssistantId
       );
-      return id;
+      return data?.data?.id;
     } finally {
       toast.closeAll();
     }
@@ -160,7 +160,45 @@ class Store {
         return curConv.messages.pop();
       }
 
-      this.startPullingMessage(res.data.id);
+      if (res.data.contentFrom === "QALib") {
+        if (res.data.content) {
+          res.data.content = this._replaceAllBreakLine(
+            res.data.content,
+            " \n "
+          );
+        }
+
+        this.typingMessage = res.data?.content;
+
+        if (this.typingMessage && this.typingMessage.length > 0)
+          this.isSending = false;
+
+        const curConv = this.conversation;
+
+        clearAudioWaitingList();
+        this.processedSentences.clear();
+        this.templateStore.length = 0;
+        this.clearPullTimer();
+        curConv?.messages.push({
+          from: "them",
+          content: res.data.content,
+          messageId: res.data.id,
+          conversationId: curConv.id,
+          nickName: "小星",
+          type: "text",
+          avatar:
+            "https://mtbird-cdn.staringos.com/product/images/staringai-logo.png",
+        });
+
+        this.isSending = false;
+        await this.playVoice(res.data.id, res.data.content);
+
+        if (!curConv) return;
+        this.typingMessage = null;
+        syncConversation(curConv.id, curConv.messages, this.user?.id);
+      } else {
+        this.startPullingMessage(res.data.id);
+      }
     } catch (e) {
       // Taro.hideLoading()
       this.isSending = false;
